@@ -8,6 +8,11 @@ class Player():
         self.ID = _ID
         self.lawyerdiff = 0
         self.myresults = []
+        if self.ID == 0:
+            self.opponent = 1
+        if self.ID == 1:
+            self.opponent = 0
+
     
     def differences(self):
         num_round = self.scoreboard.get_round_number()
@@ -30,19 +35,19 @@ class Player():
         rat_out = 0; 
         prev = 2;
         for i in x:
-            if(i == prev):
-                if(i == STAY_SILENT):
+            if(i(self.opponent) == prev):
+                if(i(self.opponent) == 1 or i(self.opponent) == 3):
                     silent_run_length+=1;
                     number_silent+=1;
                     if(silent_run_length == 2):
                         silent_runs+=1;
-                if(i == RAT_OUT):
+                if(i(self.opponent) == 0 or i(self.opponent) == 2):
                     number_rat+=1;
                     rat_run_length+=1;
                     if(rat_run_length == 2):
                         rat_runs+=1;
             else:
-                if(i == STAY_SILENT):
+                if(i(self.opponent) == 1 or i(self.opponent) == 3):
                     max_rat_run = max(max_rat_run, rat_run);
                     rat_run_length = 0;
                     number_silent+=1;
@@ -52,14 +57,19 @@ class Player():
                     silent_run_length = 0;
                     number_rat+=1;
                     rat_run_length+=1;
-            prev = i;
+            prev = i(self.opponent);
         max_rat_run = max(max_rat_run, rat_run);
         max_silent_run = max(max_silent_run, silent_run);
         return [number_silent,number_rat, silent_runs,rat_runs,max_silent_run,max_rat_run]
     
     def get_move(self):
-        #for i in range(self.scoreboard.get_round_number()):
+        scores = []
+        for i in range(self.scoreboard.get_round_number()):
+            scores[i] = self.scoreboard.get_result(i)
         differences()
-        if 
+        stats = runs(scores)
+        if self.scoreboard.get_result(self.scoreboard.get_round_number()-1):
+            return Game.RAT_OUT
+        
         return 0
         #return Game.STAY_SILENT
