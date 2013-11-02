@@ -4,7 +4,7 @@ RAT_OUT = 0
 STAY_SILENT = 1
 
 #returns number of 1 runs, 0 runs.
-#Returns a list with  [number_silent,number_rat, silent_runs,rat_runs,max_silent_run,max_rat_run]
+#Returns a list with 
 def runs(x):
 	silent_runs = 0;
 	rat_runs = 0;
@@ -30,16 +30,16 @@ def runs(x):
 					rat_runs+=1;
 		else:
 			if(i == STAY_SILENT):
-				max_rat_run = max(max_rat_run, rat_run_length);
+				max_rat_run = max(max_rat_run, rat_run);
 				rat_run_length = 0;
 				number_silent+=1;
 				silent_run_length+=1;
 			else:
-				max_silent_run = max(max_silent_run, silent_run_length);
+				max_silent_run = max(max_silent_run, silent_run);
 				silent_run_length = 0;
 				number_rat+=1;
 				rat_run_length+=1;
 		prev = i;
-	max_rat_run = max(max_rat_run, rat_run_length);
-	max_silent_run = max(max_silent_run, silent_run_length);
+	max_rat_run = max(max_rat_run, rat_run);
+	max_silent_run = max(max_silent_run, silent_run);
 	return [number_silent,number_rat, silent_runs,rat_runs,max_silent_run,max_rat_run]
